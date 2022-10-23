@@ -2,7 +2,14 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient<IReviewsService, ReviewsService>();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddTransient<IReviewsService, FakeReviewsService>();
+}
+else
+{
+    builder.Services.AddHttpClient<IReviewsService, ReviewsService>();
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
