@@ -1,6 +1,9 @@
+using Movies.Web.Services.Reviews;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient<IReviewsService, ReviewsService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
