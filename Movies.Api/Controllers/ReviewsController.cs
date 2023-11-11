@@ -64,4 +64,25 @@ public class ReviewsController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
+
+    // DELETE: /reviews/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteReviewById([FromRoute]int id)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _reviewsService.DeleteReviewAsync(id);
+            return Ok();
+        }
+        catch
+        {
+            _logger.LogWarning("Exception occurred using Reviews service.");
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
 }
