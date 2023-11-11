@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddTransient<IReviewsService, ReviewsServiceFake>();
+    builder.Services.AddSingleton<IReviewsService, ReviewsServiceFake>();
 }
 else
 {
