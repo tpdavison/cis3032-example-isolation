@@ -4,7 +4,7 @@ namespace Movies.Api.Services.Reviews;
 
 public class ReviewsServiceFake : IReviewsService
 {
-    private readonly ReviewDto[] _reviews =
+    private readonly List<ReviewDto> _reviews = new()
     {
             new ReviewDto { Id = 1, AuthorId = "larry", AuthorName = "Larry von Larryington", CategoryId = "MOV", CategoryTitle = "Movie", Subject = "Star Trek", Summary = "Loved it", Text = "Really enjoyed this movie.  Proper good and that.", Rating = 4 },
             new ReviewDto { Id = 2, AuthorId = "beehive", AuthorName = "Betty Lively", CategoryId = "MOV", CategoryTitle = "Movie", Subject = "Star Trek", Summary = "Entertaining but not worth buying", Text = "Didn't feel like the Star Trek I know and love, but it was still entertaining.  Be warned, there's a bit of an obsession with lens flare!", Rating = 3 },
@@ -12,7 +12,7 @@ public class ReviewsServiceFake : IReviewsService
             new ReviewDto { Id = 4, AuthorId = "larry", AuthorName = "Larry von Larryington", CategoryId = "MOV", CategoryTitle = "Movie", Subject = "Santa Claus Conquers the Martians", Summary = "What!?", Text = "What the actual chuffing missery did I just watch!", Rating = 1 },
             new ReviewDto { Id = 5, AuthorId = "bob69", AuthorName = "Robert Bob Robertson", CategoryId = "MOV", CategoryTitle = "Movie", Subject = "Star Trek", Summary = "wheres mr data???", Text = "", Rating = 2 }
 
-        };
+    };
 
     public Task<ReviewDto?> GetReviewAsync(int id)
     {
@@ -28,5 +28,11 @@ public class ReviewsServiceFake : IReviewsService
             reviews = reviews.Where(r => r.Subject.Equals(subject, StringComparison.OrdinalIgnoreCase));
         }
         return Task.FromResult(reviews);
+    }
+
+    public Task DeleteReviewAsync(int id)
+    {
+        _reviews.RemoveAll(r => r.Id == id);
+        return Task.CompletedTask;
     }
 }

@@ -40,4 +40,10 @@ public class ReviewsService : IReviewsService
         var reviews = await response.Content.ReadAsAsync<IEnumerable<ReviewDto>>();
         return reviews;
     }
+
+    public async Task DeleteReviewAsync(int id)
+    {
+        var response = await _client.DeleteAsync("api/reviews/" + id);
+        response.EnsureSuccessStatusCode();
+    }
 }
